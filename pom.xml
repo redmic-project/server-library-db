@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>es.redmic.lib</groupId>
+		<artifactId>libs</artifactId>
+		<version>0.6.0</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>db</artifactId>
+	<packaging>jar</packaging>
+	<name>DB</name>
+	<description>Services, repository and models in DB</description>
+
+	<properties>
+		<checkstyle.config.location>src/main/resources/checkstyle.xml</checkstyle.config.location>
+	</properties>
+
+	<dependencies>
+
+		<!-- Redmic -->
+		<dependency>
+			<groupId>es.redmic.lib</groupId>
+			<artifactId>db-commons</artifactId>
+			<version>${redmic.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>es.redmic.lib</groupId>
+			<artifactId>models</artifactId>
+			<version>${redmic.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>es.redmic.lib</groupId>
+			<artifactId>exceptions</artifactId>
+			<version>${redmic.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- SpringBoot -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
+
+		<!-- Otros -->
+
+		<!-- Necesario para el driver -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-spatial</artifactId>
+		</dependency>
+
+		<!-- Test -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>${com.mysema.maven}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<logOnlyOnError>true</logOnlyOnError>
+							<outputDirectory>target/generated-sources</outputDirectory>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.querydsl</groupId>
+						<artifactId>querydsl-apt</artifactId>
+						<version>${com.mysema.querydsl}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>
