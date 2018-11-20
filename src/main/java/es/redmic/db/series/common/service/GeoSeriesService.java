@@ -25,7 +25,7 @@ import es.redmic.models.es.series.common.dto.MeasurementDTO;
 
 public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends MetaFeatureDTO<FixedSurveySeriesPropertiesDTO, ?>>
 		extends ServiceGeo<TModel, TDTO> {
-	
+
 	@Autowired
 	FixedMeasurementRepository fixedMeasurementRepository;
 
@@ -46,14 +46,16 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 		List<MeasurementDTO> measurementsResult = new ArrayList<MeasurementDTO>();
 
 		List<MeasurementDTO> measurementsOrigin = source.getProperties().getMeasurements();
-		
+
 		for (int i = 0; i < measurementsOrigin.size(); i++) {
 
 			MeasurementDTO measurementDTO = measurementsOrigin.get(i);
-				
-			//Guardamos dataDefinition
-			DataDefinition dataDefinition = factory.getMapperFacade().map(measurementDTO.getDataDefinition(), DataDefinition.class);
-			dataDefinition.setParameterUnit(getParameterUnit(measurementDTO.getParameter().getId(), measurementDTO.getUnit().getId()));
+
+			// Guardamos dataDefinition
+			DataDefinition dataDefinition = factory.getMapperFacade().map(measurementDTO.getDataDefinition(),
+					DataDefinition.class);
+			dataDefinition.setParameterUnit(
+					getParameterUnit(measurementDTO.getParameter().getId(), measurementDTO.getUnit().getId()));
 			dataDefinition = dataDefinitionService.saveModel(dataDefinition);
 
 			// Guardamos measurement
@@ -63,16 +65,15 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 			fixedMeasurement.setDataDefinition(dataDefinition);
 			fixedMeasurement = fixedMeasurementRepository.save(fixedMeasurement);
 
-			//Construimos el dto de salida
+			// Construimos el dto de salida
 			DataDefinitionSeriesDTO dataDefinitionItem = factory.getMapperFacade().map(dataDefinition,
 					DataDefinitionSeriesDTO.class);
 			dataDefinitionItem.setZ(fixedMeasurement.getZ());
-			
-			HierarchicalParameterDTO parDto = 
-					factory.getMapperFacade().map(dataDefinition.getParameterUnit().getParameter(), HierarchicalParameterDTO.class);
-			UnitDTO unitDto = 
-					factory.getMapperFacade().map(dataDefinition.getParameterUnit().getUnit(), UnitDTO.class);
-			
+
+			HierarchicalParameterDTO parDto = factory.getMapperFacade()
+					.map(dataDefinition.getParameterUnit().getParameter(), HierarchicalParameterDTO.class);
+			UnitDTO unitDto = factory.getMapperFacade().map(dataDefinition.getParameterUnit().getUnit(), UnitDTO.class);
+
 			MeasurementDTO measurementItem = new MeasurementDTO();
 			measurementItem.setDataDefinition(dataDefinitionItem);
 			measurementItem.setParameter(parDto);
@@ -86,46 +87,52 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 
 	@Override
 	protected TDTO updateReferences(TDTO target, TDTO source, TModel model) {
-		
+
 		List<MeasurementDTO> measurementsResult = new ArrayList<MeasurementDTO>();
 		List<MeasurementDTO> measurementsOrigin = source.getProperties().getMeasurements();
 		for (int i = 0; i < measurementsOrigin.size(); i++) {
 
 			MeasurementDTO measurementDTO = measurementsOrigin.get(i);
-			
+
 			DataDefinitionDTO dataDefinitionDTO = measurementDTO.getDataDefinition();
 			Double z = dataDefinitionDTO.getZ();
 			// Guardamos measurement sin pasar por dto
-			FixedMeasurement fixedMeasurement = getFixedMeasurement(model.getId(), z);
+
 			DataDefinition dataDefinition = factory.getMapperFacade().map(dataDefinitionDTO, DataDefinition.class);
-			dataDefinition.setParameterUnit(getParameterUnit(measurementDTO.getParameter().getId(), measurementDTO.getUnit().getId()));
+			dataDefinition.setParameterUnit(
+					getParameterUnit(measurementDTO.getParameter().getId(), measurementDTO.getUnit().getId()));
+
+			FixedMeasurement fixedMeasurement = null;
+
+			// Si data definition es null, el Measurement no existe y hay que insertarlo.
 			if (dataDefinitionDTO.getId() == null) {
 
-				if (fixedMeasurement == null) {
-					fixedMeasurement = new FixedMeasurement();
-					fixedMeasurement.setFixedSurvey(model);
-					fixedMeasurement.setZ(z);
-					fixedMeasurement.setDataDefinition(dataDefinition);
-					fixedMeasurement = fixedMeasurementRepository.save(fixedMeasurement);
-				}
 				dataDefinition = dataDefinitionService.saveModel(dataDefinition);
+
+				fixedMeasurement = new FixedMeasurement();
+				fixedMeasurement.setFixedSurvey(model);
+				fixedMeasurement.setZ(z);
+				fixedMeasurement.setDataDefinition(dataDefinition);
+				fixedMeasurement = fixedMeasurementRepository.save(fixedMeasurement);
 			} else {
+				// Si el dataDefinition no es null, se espera que exista el Measurement sin
+				// modificar la z
+				fixedMeasurement = getFixedMeasurement(model.getId(), dataDefinitionDTO.getId(), z);
 				// El measurement, en caso de no existir, lanza
 				if (fixedMeasurement == null)
 					throw new DBNotFoundException("FixedMeasurement",
 							"FixedSurveyId=" + model.getId() + " z=" + dataDefinitionDTO.getZ());
-				
+
 				dataDefinition = dataDefinitionService.updateModel(dataDefinition);
 			}
 			DataDefinitionSeriesDTO dataDefinitionItem = factory.getMapperFacade().map(dataDefinition,
 					DataDefinitionSeriesDTO.class);
 			dataDefinitionItem.setZ(fixedMeasurement.getZ());
 
-			HierarchicalParameterDTO parDto = 
-					factory.getMapperFacade().map(dataDefinition.getParameterUnit().getParameter(), HierarchicalParameterDTO.class);
-			UnitDTO unitDto = 
-					factory.getMapperFacade().map(dataDefinition.getParameterUnit().getUnit(), UnitDTO.class);
-			
+			HierarchicalParameterDTO parDto = factory.getMapperFacade()
+					.map(dataDefinition.getParameterUnit().getParameter(), HierarchicalParameterDTO.class);
+			UnitDTO unitDto = factory.getMapperFacade().map(dataDefinition.getParameterUnit().getUnit(), UnitDTO.class);
+
 			MeasurementDTO measurementItem = new MeasurementDTO();
 			measurementItem.setDataDefinition(dataDefinitionItem);
 			measurementItem.setParameter(parDto);
@@ -136,17 +143,17 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 		target.getProperties().setMeasurements(measurementsResult);
 		return target;
 	}
-	
+
 	private ParameterUnit getParameterUnit(Long parameterId, Long unitId) {
 		ParameterUnit parameterUnit = parameterUnitRepository.findByUnitAndParameter(parameterId, unitId);
-		
+
 		if (parameterUnit == null)
-			throw new DBNotFoundException("Relación parameter-unit", parameterId+"-"+unitId);
-		
+			throw new DBNotFoundException("Relación parameter-unit", parameterId + "-" + unitId);
+
 		return parameterUnit;
 	}
 
-	private FixedMeasurement getFixedMeasurement(Long surveySationId, Double z) {
-		return fixedMeasurementRepository.findByZAndSurveyStation(z, surveySationId);
+	private FixedMeasurement getFixedMeasurement(Long surveySationId, Long dataDefinitionId, Double z) {
+		return fixedMeasurementRepository.findByZAndSurveyStation(z, surveySationId, dataDefinitionId);
 	}
 }
