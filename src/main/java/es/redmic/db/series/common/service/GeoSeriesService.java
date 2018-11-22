@@ -118,11 +118,12 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 				// Si el dataDefinition no es null, se espera que exista el Measurement sin
 				// modificar la z
 				fixedMeasurement = getFixedMeasurement(model.getId(), dataDefinitionDTO.getId(), z);
-				// El measurement, en caso de no existir, lanza
-				if (fixedMeasurement == null)
-					throw new DBNotFoundException("FixedMeasurement",
-							"FixedSurveyId=" + model.getId() + " z=" + dataDefinitionDTO.getZ());
-
+				// Si se ha modificado la z se debe modificar el fixedMeasurement
+				if (fixedMeasurement == null) {
+					fixedMeasurement = fixedMeasurementRepository.findByDataDefinitionId(dataDefinitionDTO.getId());
+					fixedMeasurement.setZ(z);
+					fixedMeasurement = fixedMeasurementRepository.save(fixedMeasurement);
+				}
 				dataDefinition = dataDefinitionService.updateModel(dataDefinition);
 			}
 			DataDefinitionSeriesDTO dataDefinitionItem = factory.getMapperFacade().map(dataDefinition,
@@ -139,9 +140,32 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 			measurementItem.setUnit(unitDto);
 			measurementsResult.add(measurementItem);
 		}
-		// TODO: busca dataDefinition que no lleguen en dto y los elimina.
+		// busca dataDefinition que no lleguen en la request y los elimina.
+		deleteDataDefinitions(source.getProperties().getSite().getId(), measurementsOrigin);
 		target.getProperties().setMeasurements(measurementsResult);
 		return target;
+	}
+
+	private void deleteDataDefinitions(Long fixedSurveyId, List<MeasurementDTO> measurements) {
+
+		List<FixedMeasurement> fixedMeasurements = fixedMeasurementRepository.findByFixedSurveyId(fixedSurveyId);
+
+		for (int i = 0; i < fixedMeasurements.size(); i++) {
+
+			boolean found = false;
+			FixedMeasurement fixedMeasurement = fixedMeasurements.get(i);
+			for (int j = 0; j < measurements.size(); j++) {
+				if (measurements.get(j).getDataDefinition().getId().equals(fixedMeasurement.getId())) {
+					found = true;
+					break;
+				}
+			}
+			if (found == false) {
+				Long dataDefinitionId = fixedMeasurement.getId();
+				fixedMeasurementRepository.delete(fixedMeasurement);
+				dataDefinitionService.delete(dataDefinitionId);
+			}
+		}
 	}
 
 	private ParameterUnit getParameterUnit(Long parameterId, Long unitId) {

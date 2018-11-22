@@ -1,5 +1,7 @@
 package es.redmic.db.geodata.properties.fixedsurvey.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -17,4 +19,7 @@ public interface FixedMeasurementRepository extends BaseRepository<FixedMeasurem
 	FixedMeasurement findByDataDefinitionId(@Param("id") Long dataDefinitionId);
 
 	FixedMeasurement findByDataDefinition(DataDefinition dataDefinition);
+
+	@Query("select s from FixedMeasurement s where s.fixedSurvey.id = :id")
+	List<FixedMeasurement> findByFixedSurveyId(@Param("id") Long fixedSurveyId);
 }
