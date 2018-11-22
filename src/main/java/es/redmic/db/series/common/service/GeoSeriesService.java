@@ -141,7 +141,7 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 			measurementsResult.add(measurementItem);
 		}
 		// busca dataDefinition que no lleguen en la request y los elimina.
-		deleteDataDefinitions(source.getProperties().getSite().getId(), measurementsOrigin);
+		deleteDataDefinitions(source.getProperties().getSite().getId(), measurementsResult);
 		target.getProperties().setMeasurements(measurementsResult);
 		return target;
 	}
