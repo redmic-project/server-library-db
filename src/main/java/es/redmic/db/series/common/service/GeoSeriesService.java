@@ -155,13 +155,14 @@ public abstract class GeoSeriesService<TModel extends FixedSurvey, TDTO extends 
 			boolean found = false;
 			FixedMeasurement fixedMeasurement = fixedMeasurements.get(i);
 			for (int j = 0; j < measurements.size(); j++) {
-				if (measurements.get(j).getDataDefinition().getId().equals(fixedMeasurement.getId())) {
+				if (measurements.get(j).getDataDefinition().getId()
+						.equals(fixedMeasurement.getDataDefinition().getId())) {
 					found = true;
 					break;
 				}
 			}
 			if (found == false) {
-				Long dataDefinitionId = fixedMeasurement.getId();
+				Long dataDefinitionId = fixedMeasurement.getDataDefinition().getId();
 				fixedMeasurementRepository.delete(fixedMeasurement);
 				dataDefinitionService.delete(dataDefinitionId);
 			}
