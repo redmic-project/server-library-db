@@ -15,14 +15,13 @@ import com.vividsolutions.jts.geom.Geometry;
 
 import es.redmic.db.geodata.common.model.GeoDataModel;
 
-
 /**
  * The persistent class for the surveystation database table.
  * 
  */
 @Entity
-@Table(name="fixedsurvey")
-@NamedQuery(name="FixedSurvey.findAll", query="SELECT s FROM FixedSurvey s")
+@Table(name = "fixedsurvey")
+@NamedQuery(name = "FixedSurvey.findAll", query = "SELECT s FROM FixedSurvey s")
 public class FixedSurvey extends GeoDataModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,18 +30,21 @@ public class FixedSurvey extends GeoDataModel implements Serializable {
 
 	@Column(length = 250)
 	private String description;
-	
+
 	@Column(length = 50)
 	private String name;
-	
+
 	@Column(length = 2, nullable = false)
 	private String prefixtype;
 
+	@Column(length = 500)
+	private String dashboard;
+
 	@Column(name = "shape", nullable = false)
 	Geometry geometry;
-	
-	//bi-directional many-to-one association to Timeseries
-	@OneToMany(mappedBy="fixedSurvey", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+
+	// bi-directional many-to-one association to Timeseries
+	@OneToMany(mappedBy = "fixedSurvey", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<FixedMeasurement> fixedMeasurements;
 
 	public FixedSurvey() {
@@ -80,6 +82,14 @@ public class FixedSurvey extends GeoDataModel implements Serializable {
 		this.prefixtype = prefixtype;
 	}
 
+	public String getDashboard() {
+		return dashboard;
+	}
+
+	public void setDashboard(String dashboard) {
+		this.dashboard = dashboard;
+	}
+
 	public Geometry getGeometry() {
 		return geometry;
 	}
@@ -88,7 +98,7 @@ public class FixedSurvey extends GeoDataModel implements Serializable {
 		this.geometry = geometry;
 		this.geometry.setSRID(4326);
 	}
-	
+
 	public List<FixedMeasurement> getFixedMeasurement() {
 		return this.fixedMeasurements;
 	}

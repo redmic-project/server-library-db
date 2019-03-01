@@ -13,7 +13,7 @@
 	<groupId>es.redmic.lib</groupId>
 	<artifactId>db</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.0</version>
+	<version>0.6.1</version>
 	<name>DB</name>
 	<description>Services, repository and models in DB</description>
 
@@ -26,7 +26,7 @@
 
 		<!-- REDMIC -->
 		<redmic.db-commons.version>0.6.0</redmic.db-commons.version>
-		<redmic.models.version>0.6.0</redmic.models.version>
+		<redmic.models.version>0.6.1</redmic.models.version>
 		<redmic.exceptions.version>0.6.0</redmic.exceptions.version>
 		
 		<!-- OTHER -->
