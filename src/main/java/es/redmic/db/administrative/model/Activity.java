@@ -40,7 +40,7 @@ public class Activity extends ActivityBase {
 
 	// bi-directional many-to-one association to ActivityResource
 	@OneToMany(mappedBy = "activity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<ActivityResource> resources = new HashSet<>();
+	private Set<ActivityResource> resources = new HashSet<ActivityResource>();
 
 	public Activity() {
 		// Constructor por defecto para que accedan los mappers
