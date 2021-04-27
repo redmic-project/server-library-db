@@ -9,9 +9,9 @@ package es.redmic.db.geodata.citation.model;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,8 +32,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-
-import com.vividsolutions.jts.geom.Point;
+import org.locationtech.jts.geom.Point;
 
 import es.redmic.db.administrative.taxonomy.model.Misidentification;
 import es.redmic.db.administrative.taxonomy.model.Taxon;
@@ -42,7 +41,7 @@ import es.redmic.db.geodata.common.model.GeoDataModel;
 
 /**
  * The persistent class for the citation database view.
- * 
+ *
  */
 @Entity
 @Table(name = "citation")
@@ -54,7 +53,7 @@ public class Citation extends GeoDataModel implements Serializable {
 			@Parameter(name = "databaseZone", value = "jvm"), @Parameter(name = "javaZone", value = "jvm") })
 	@Column(nullable = false)
 	private DateTime startdate;
-	
+
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime", parameters = {
 			@Parameter(name = "databaseZone", value = "jvm"), @Parameter(name = "javaZone", value = "jvm") })
 	@Column(nullable = false)
@@ -76,13 +75,13 @@ public class Citation extends GeoDataModel implements Serializable {
 	private String name;
 
 	private Double radius;
-	
+
 	@Column(name = "shape", nullable = false)
 	Point geometry;
 
 	@Column(name="z")
 	private Double z;
-	
+
 	private Double deviation;
 
 	// bi-directional many-to-one association to Confidence
@@ -94,7 +93,7 @@ public class Citation extends GeoDataModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "taxonid")
 	private Taxon taxon;
-	
+
 	// bi-directional many-to-one association to SpeciesEquivalence
 	@ManyToOne
 	@JoinColumn(name = "misidentificationid")
@@ -216,7 +215,7 @@ public class Citation extends GeoDataModel implements Serializable {
 	public void setTaxon(Taxon taxon) {
 		this.taxon = taxon;
 	}
-	
+
 	public Misidentification getMisidentification() {
 		return misidentification;
 	}

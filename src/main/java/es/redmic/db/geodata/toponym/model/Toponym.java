@@ -9,9 +9,9 @@ package es.redmic.db.geodata.toponym.model;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,14 +29,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.vividsolutions.jts.geom.Point;
+import org.locationtech.jts.geom.Point;
 
 import es.redmic.db.common.model.UuidModel;
 import es.redmic.db.maintenance.toponym.model.ToponymType;
 
 /**
  * The persistent class for the citation database view.
- * 
+ *
  */
 @Entity
 @Table(name = "toponym")
@@ -45,17 +45,17 @@ public class Toponym extends UuidModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	
+
 	@Column(nullable = false)
 	private String description;
-	
+
 	@Column(name = "zoomlevel")
 	private Integer zoomLevel;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "toponymtypeid")
 	private ToponymType toponymType;
-	
+
 	@Column(name = "shape", nullable = false)
 	Point geometry;
 
