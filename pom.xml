@@ -21,7 +21,7 @@
 	<properties>
 		<!-- REDMIC -->
 		<redmic.db-commons.version>0.6.0</redmic.db-commons.version>
-		<redmic.models.version>0.6.1</redmic.models.version>
+		<redmic.models.version>0.6.1-legacy-0.6</redmic.models.version>
 		<redmic.exceptions.version>0.6.0</redmic.exceptions.version>
 
 		<!-- OTHER -->
@@ -72,6 +72,18 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-spatial</artifactId>
+		</dependency>
+
+		<!-- Logs -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Test -->
