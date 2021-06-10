@@ -65,7 +65,10 @@ public class Activity extends ActivityBase {
 	private String activityCategory;
 
 	@Column(length = 5000)
-	private String license;
+	private String licence;
+
+	@Column(length = 5000)
+	private String normative;
 
 	@Column(name = "spatialextension")
 	private String spatialExtension;
@@ -113,12 +116,20 @@ public class Activity extends ActivityBase {
 		this.activityCategory = activityCategory;
 	}
 
-	public String getLicense() {
-		return this.license;
+	public String getLicence() {
+		return this.licence;
 	}
 
-	public void setLicense(String license) {
-		this.license = license;
+	public void setLicence(String licence) {
+		this.licence = licence;
+	}
+
+	public String getNormative() {
+		return this.normative;
+	}
+
+	public void setNormative(String normative) {
+		this.normative = normative;
 	}
 
 	public String getSpatialExtension() {
