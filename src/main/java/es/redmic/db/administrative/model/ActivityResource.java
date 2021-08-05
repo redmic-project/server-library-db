@@ -9,9 +9,9 @@ package es.redmic.db.administrative.model;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,6 +30,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import es.redmic.databaselib.common.model.LongModel;
+import es.redmic.db.maintenance.administrative.model.ResourceType;
 
 /**
  * The persistent class for the activityresource database table.
@@ -45,11 +46,10 @@ public class ActivityResource extends LongModel implements Serializable {
 	@JoinColumn(name = "activityid", nullable = false)
 	private ActivityBase activity;
 
-	@Column(nullable = false, length = 100)
-	private String name;
-
-	@Column(length = 1500)
-	private String description;
+	// bi-directional many-to-one association to Rank
+	@ManyToOne
+	@JoinColumn(name = "resourcetypeid", insertable = false, updatable = false, nullable=false)
+	private ResourceType resourceType;
 
 	@Column(name = "urlresource", length = 500)
 	private String urlResource;
@@ -66,20 +66,12 @@ public class ActivityResource extends LongModel implements Serializable {
 		this.activity = activityBase;
 	}
 
-	public String getName() {
-		return this.name;
+	public ResourceType getResourceType() {
+		return this.resourceType;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setResourceType(ResourceType resourceType) {
+		this.resourceType = resourceType;
 	}
 
 	public String getUrlResource() {
