@@ -48,11 +48,11 @@ public class ActivityResource extends LongModel implements Serializable {
 
 	// bi-directional many-to-one association to Rank
 	@ManyToOne
-	@JoinColumn(name = "resourcetypeid", insertable = false, updatable = false, nullable=false)
-	private ResourceType resourceType;
+	@JoinColumn(name = "resourcetypeid", nullable=false)
+	private ResourceType resourcetype;
 
 	@Column(name = "urlresource", length = 500)
-	private String urlResource;
+	private String urlresource;
 
 	public ActivityResource() {
 		// Constructor por defecto para que accedan los mappers
@@ -67,18 +67,18 @@ public class ActivityResource extends LongModel implements Serializable {
 	}
 
 	public ResourceType getResourceType() {
-		return this.resourceType;
+		return this.resourcetype;
 	}
 
 	public void setResourceType(ResourceType resourceType) {
-		this.resourceType = resourceType;
+		this.resourcetype = resourceType;
 	}
 
 	public String getUrlResource() {
-		return this.urlResource;
+		return this.urlresource;
 	}
 
 	public void setUrlResource(String urlResource) {
-		this.urlResource = urlResource;
+		this.urlresource = urlResource;
 	}
 }
