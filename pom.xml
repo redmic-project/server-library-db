@@ -14,14 +14,14 @@
 	<groupId>es.redmic.lib</groupId>
 	<artifactId>db</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.0-feature-refactoring</version>
+	<version>0.8.0</version>
 	<name>DB</name>
 	<description>Services, repository and models in DB</description>
 
 	<properties>
 		<!-- REDMIC -->
 		<redmic.db-commons.version>0.7.0</redmic.db-commons.version>
-		<redmic.models.version>0.12.0-feature-refactoring</redmic.models.version>
+		<redmic.models.version>0.13.0</redmic.models.version>
 		<redmic.exceptions.version>0.10.0</redmic.exceptions.version>
 
 		<!-- OTHER -->
