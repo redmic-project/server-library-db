@@ -9,9 +9,9 @@ package es.redmic.db.geodata.properties.fixedsurvey.model;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,13 +31,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 
 import es.redmic.db.geodata.common.model.GeoDataModel;
 
 /**
  * The persistent class for the surveystation database table.
- * 
+ *
  */
 @Entity
 @Table(name = "fixedsurvey")
@@ -68,6 +68,7 @@ public class FixedSurvey extends GeoDataModel implements Serializable {
 	private List<FixedMeasurement> fixedMeasurements;
 
 	public FixedSurvey() {
+		super();
 	}
 
 	public String getCode() {

@@ -108,13 +108,12 @@ public abstract class ServiceRWImpl<TModel extends LongModel, TDTO extends DTO>
 	public TModel persist(TModel model) {
 		try {
 			model = repository.saveAndFlush(model);
-			repository.refresh(model);
+			return findById(model.getId());
 		} catch (DataIntegrityViolationException e) {
 			throw new DBConstraintViolationException(e);
 		} catch (ConstraintViolationException e) {
 			throw new DBPropertyValueException(e);
 		}
-		return model;
 	}
 
 	@Override

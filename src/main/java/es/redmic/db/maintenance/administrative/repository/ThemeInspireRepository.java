@@ -1,10 +1,10 @@
-package es.redmic.db.maintenance.toponym.repository;
+package es.redmic.db.maintenance.administrative.repository;
 
 /*-
  * #%L
  * DB
  * %%
- * Copyright (C) 2019 REDMIC Project / Server
+ * Copyright (C) 2019 - 2021 REDMIC Project / Server
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,12 @@ package es.redmic.db.maintenance.toponym.repository;
  * #L%
  */
 
+
+import org.springframework.stereotype.Repository;
+
 import es.redmic.databaselib.common.repository.BaseRepository;
-import es.redmic.db.maintenance.toponym.model.ToponymType;
+import es.redmic.db.maintenance.administrative.model.ThemeInspire;
 
-public interface ToponymTypeRepository extends
-		BaseRepository<ToponymType, Long> {
-
+@Repository
+public interface ThemeInspireRepository extends BaseRepository<ThemeInspire, Long> {
 }

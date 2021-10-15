@@ -9,9 +9,9 @@ package es.redmic.db.geodata.tracking.common.model;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,8 +30,7 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-
-import com.vividsolutions.jts.geom.Point;
+import org.locationtech.jts.geom.Point;
 
 import es.redmic.db.geodata.common.model.GeoDataModel;
 import es.redmic.db.maintenance.device.model.Device;
@@ -40,9 +39,9 @@ import es.redmic.db.maintenance.quality.model.VFlag;
 
 @MappedSuperclass
 public abstract class BaseTracking extends GeoDataModel implements Serializable {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1736606490310199870L;
 
@@ -54,44 +53,44 @@ public abstract class BaseTracking extends GeoDataModel implements Serializable 
 	private String code;
 
 	private Double radius;
-	
+
 	@Column(name = "shape", nullable=false)
 	Point geometry;
 
 	private Double z;
-	
+
 	@Column(name = "argosid")
 	private Integer argosId;
-	
-	@Type(type="es.redmic.db.common.type.EnumType", 
-		parameters = { 
-			@Parameter(name  = "enumClassName", value = "es.redmic.db.geodata.tracking.common.model.LocationClass") 
+
+	@Type(type="es.redmic.db.common.type.EnumType",
+		parameters = {
+			@Parameter(name  = "enumClassName", value = "es.redmic.db.geodata.tracking.common.model.LocationClass")
 		})
 	@Column(name = "locationclass")
 	private LocationClass locationClass = null;
-	
+
 	@Column(name = "passduration")
 	private Integer passDuration;
-	
+
 	@Column(name = "cumulativetime")
 	private Double cumulativeTime;
-	
+
 	@Column(name = "cumulativekm")
 	private Double cumulativeKm;
-	
+
 	private Double hours;
-	
+
 	@Column(name = "lastdistancekm")
 	private Double lastDistanceKm;
-	
+
 	@Column(name = "speedkph")
 	private Double speedKph;
-	
+
 	// bi-directional many-to-one association to Activity
 	@ManyToOne
 	@JoinColumn(name = "qflag")
 	private QFlag qFlag;
-	
+
 	// bi-directional many-to-one association to Activity
 	@ManyToOne
 	@JoinColumn(name = "vflag")
@@ -142,7 +141,7 @@ public abstract class BaseTracking extends GeoDataModel implements Serializable 
 	public void setZ(Double z) {
 		this.z = z;
 	}
-	
+
 	public Integer getArgosId() {
 		return argosId;
 	}
