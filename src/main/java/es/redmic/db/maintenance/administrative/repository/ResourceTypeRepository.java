@@ -1,4 +1,4 @@
-package es.redmic.db.geodata.toponym.service;
+package es.redmic.db.maintenance.administrative.repository;
 
 /*-
  * #%L
@@ -9,9 +9,9 @@ package es.redmic.db.geodata.toponym.service;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,19 +20,9 @@ package es.redmic.db.geodata.toponym.service;
  * #L%
  */
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import es.redmic.databaselib.common.repository.BaseRepository;
+import es.redmic.db.maintenance.administrative.model.ResourceType;
 
-import es.redmic.db.common.service.ServiceRWImpl;
-import es.redmic.db.geodata.toponym.model.Toponym;
-import es.redmic.db.geodata.toponym.repository.ToponymRepository;
-import es.redmic.models.es.geojson.toponym.dto.ToponymDTO;
+public interface ResourceTypeRepository extends BaseRepository<ResourceType, Long> {
 
-@Service
-public class ToponymService extends ServiceRWImpl<Toponym, ToponymDTO> {
-
-	@Autowired
-	public ToponymService(ToponymRepository repository) {
-		super(repository);
-	}
 }

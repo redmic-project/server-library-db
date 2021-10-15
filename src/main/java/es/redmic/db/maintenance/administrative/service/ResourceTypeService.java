@@ -1,4 +1,4 @@
-package es.redmic.db.atlas.layer.service;
+package es.redmic.db.maintenance.administrative.service;
 
 /*-
  * #%L
@@ -9,9 +9,9 @@ package es.redmic.db.atlas.layer.service;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,16 +23,16 @@ package es.redmic.db.atlas.layer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.redmic.db.atlas.layer.model.ThemeInspire;
-import es.redmic.db.atlas.layer.repository.ThemeInspireRepository;
 import es.redmic.db.common.service.ServiceRWImpl;
-import es.redmic.models.es.atlas.dto.ThemeInspireDTO;
+import es.redmic.db.maintenance.administrative.model.ResourceType;
+import es.redmic.db.maintenance.administrative.repository.ResourceTypeRepository;
+import es.redmic.models.es.maintenance.administrative.dto.ResourceTypeDTO;
 
 @Service
-public class ThemeInspireService extends ServiceRWImpl<ThemeInspire, ThemeInspireDTO> {
+public class ResourceTypeService extends ServiceRWImpl<ResourceType, ResourceTypeDTO> {
 
 	@Autowired
-	public ThemeInspireService(ThemeInspireRepository repository) {
+	public ResourceTypeService(ResourceTypeRepository repository) {
 		super(repository);
 	}
 }

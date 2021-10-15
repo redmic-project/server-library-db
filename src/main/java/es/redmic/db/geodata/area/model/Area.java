@@ -9,9 +9,9 @@ package es.redmic.db.geodata.area.model;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.vividsolutions.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.MultiPolygon;
 
 import es.redmic.db.geodata.common.model.GeoDataModel;
 import es.redmic.db.maintenance.areas.model.AreaClassification;
@@ -43,7 +43,7 @@ import es.redmic.db.maintenance.areas.model.AreaType;
 
 /**
  * The persistent class for the area database table.
- * 
+ *
  */
 @Entity
 @Table(name = "area")
@@ -80,6 +80,7 @@ public class Area extends GeoDataModel implements Serializable {
 	private List<AreaClassification> areaClassification = new ArrayList<AreaClassification>();
 
 	public Area() {
+		super();
 	}
 
 	public String getPath() {

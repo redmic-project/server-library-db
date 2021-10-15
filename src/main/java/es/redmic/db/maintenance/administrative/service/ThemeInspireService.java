@@ -1,10 +1,10 @@
-package es.redmic.db.maintenance.toponym.service;
+package es.redmic.db.maintenance.administrative.service;
 
 /*-
  * #%L
  * DB
  * %%
- * Copyright (C) 2019 REDMIC Project / Server
+ * Copyright (C) 2019 - 2021 REDMIC Project / Server
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,17 @@ package es.redmic.db.maintenance.toponym.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.redmic.db.common.service.ServiceDomain;
-import es.redmic.db.maintenance.toponym.model.ToponymType;
-import es.redmic.db.maintenance.toponym.repository.ToponymTypeRepository;
-import es.redmic.models.es.maintenance.toponym.dto.ToponymTypeDTO;
+import es.redmic.db.maintenance.administrative.model.ThemeInspire;
+import es.redmic.db.maintenance.administrative.repository.ThemeInspireRepository;
+import es.redmic.models.es.maintenance.administrative.dto.ThemeInspireDTO;
+import es.redmic.db.common.service.ServiceRWImpl;
+
 
 @Service
-public class ToponymTypeService extends
-		ServiceDomain<ToponymType, ToponymTypeDTO> {
+public class ThemeInspireService extends ServiceRWImpl<ThemeInspire, ThemeInspireDTO> {
 
 	@Autowired
-	public ToponymTypeService(ToponymTypeRepository repository) {
+	public ThemeInspireService(ThemeInspireRepository repository) {
 		super(repository);
 	}
 }

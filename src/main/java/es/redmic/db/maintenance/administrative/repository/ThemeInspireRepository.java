@@ -1,10 +1,10 @@
-package es.redmic.db.series.timeseries.repository;
+package es.redmic.db.maintenance.administrative.repository;
 
 /*-
  * #%L
  * DB
  * %%
- * Copyright (C) 2019 REDMIC Project / Server
+ * Copyright (C) 2019 - 2021 REDMIC Project / Server
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,12 @@ package es.redmic.db.series.timeseries.repository;
  * #L%
  */
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
+import org.springframework.stereotype.Repository;
 
 import es.redmic.databaselib.common.repository.BaseRepository;
-import es.redmic.db.series.timeseries.model.TimeSeries;
+import es.redmic.db.maintenance.administrative.model.ThemeInspire;
 
-public interface TimeSeriesRepository extends BaseRepository<TimeSeries, Long> {
-	
-	@Query(value = "SELECT t FROM TimeSeries t WHERE t.id between :start and :end")
-	Page<TimeSeries> findBetween(@Param("start") long start, @Param("end") long end, Pageable pageable);
+@Repository
+public interface ThemeInspireRepository extends BaseRepository<ThemeInspire, Long> {
 }
