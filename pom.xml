@@ -14,7 +14,7 @@
 	<groupId>es.redmic.lib</groupId>
 	<artifactId>db</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.0</version>
+	<version>0.8.0-feature-addInternalUrl</version>
 	<name>DB</name>
 	<description>Services, repository and models in DB</description>
 
