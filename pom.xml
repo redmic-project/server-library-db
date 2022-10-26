@@ -21,7 +21,7 @@
 	<properties>
 		<!-- REDMIC -->
 		<redmic.db-commons.version>0.7.0</redmic.db-commons.version>
-		<redmic.models.version>0.13.0</redmic.models.version>
+		<redmic.models.version>0.13.0-feature-addInternalUrl</redmic.models.version>
 		<redmic.exceptions.version>0.10.0</redmic.exceptions.version>
 
 		<!-- OTHER -->
