@@ -9,9 +9,9 @@ package es.redmic.db.administrative.model;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,18 +40,18 @@ import org.joda.time.DateTime;
 
 import es.redmic.db.administrative.taxonomy.model.Misidentification;
 import es.redmic.db.administrative.taxonomy.model.Peculiarity;
-import es.redmic.db.common.model.UpdatableModel;
+import es.redmic.db.common.model.EnabledModel;
 import es.redmic.db.maintenance.administrative.model.DocumentType;
 import es.redmic.db.maintenance.device.model.Device;
 
 /**
  * The persistent class for the document database table.
- * 
+ *
  */
 @Entity
 @Table(name = "document")
 @NamedQuery(name = "Document.findAll", query = "SELECT d FROM Document d")
-public class Document extends UpdatableModel implements Serializable {
+public class Document extends EnabledModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(length = 50)
@@ -77,6 +77,12 @@ public class Document extends UpdatableModel implements Serializable {
 
 	@Column(length = 250)
 	private String url;
+
+	@Column(length = 250)
+	private String internalurl;
+
+	@Column
+	private Boolean privateinternalurl;
 
 	@Column(nullable = false)
 	private Integer year;
@@ -109,6 +115,7 @@ public class Document extends UpdatableModel implements Serializable {
 	private Set<Misidentification> misidentifications;
 
 	public Document() {
+		super();
 	}
 
 	public String getCode() {
@@ -178,6 +185,22 @@ public class Document extends UpdatableModel implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getInternalUrl() {
+		return this.internalurl;
+	}
+
+	public void setInternalUrl(String internalurl) {
+		this.internalurl = internalurl;
+	}
+
+	public Boolean getPrivateInternalUrl() {
+		return this.privateinternalurl;
+	}
+
+	public void setPrivateInternalUrl(Boolean privateinternalurl) {
+		this.privateinternalurl = privateinternalurl;
 	}
 
 	public Integer getYear() {
