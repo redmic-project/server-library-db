@@ -80,6 +80,10 @@ public class Activity extends ActivityBase {
 	@OneToMany(mappedBy = "activity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ActivityResource> resources = new HashSet<>();
 
+	// bi-directional many-to-one association to ActivityEmbeddedContent
+	@OneToMany(mappedBy = "activity", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<ActivityEmbeddedContent> embeddedContents = new HashSet<>();
+
 	public Activity() {
 		// Constructor por defecto para que accedan los mappers
 	}
@@ -140,16 +144,16 @@ public class Activity extends ActivityBase {
 		this.spatialExtension = spatialExtension;
 	}
 
-	public Set<ActivityResource> getResources() {
-		return resources;
-	}
-
 	public Boolean getStarred() {
 		return this.starred;
 	}
 
 	public void setStarred(Boolean starred) {
 		this.starred = starred;
+	}
+
+	public Set<ActivityResource> getResources() {
+		return resources;
 	}
 
 	public void setResources(Set<ActivityResource> activityResources) {
@@ -168,5 +172,27 @@ public class Activity extends ActivityBase {
 		resource.setActivity(this);
 		getResources().add(resource);
 		return resource;
+	}
+
+	public Set<ActivityEmbeddedContent> getEmbeddedContents() {
+		return this.embeddedContents;
+	}
+
+	public void setEmbeddedContents(Set<ActivityEmbeddedContent> embeddedContents) {
+
+		this.embeddedContents.clear();
+
+		if (embeddedContents == null) {
+			return;
+		}
+
+		for (ActivityEmbeddedContent embeddedContent: embeddedContents)
+			addEmbeddedContent(embeddedContent);
+	}
+
+	public ActivityEmbeddedContent addEmbeddedContent(ActivityEmbeddedContent activityEmbeddedContent) {
+		activityEmbeddedContent.setActivity(this);
+		getEmbeddedContents().add(activityEmbeddedContent);
+		return activityEmbeddedContent;
 	}
 }
