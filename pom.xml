@@ -14,14 +14,14 @@
 	<groupId>es.redmic.lib</groupId>
 	<artifactId>db</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9.0-feature-addActivityEmbeddedContent</version>
+	<version>0.10.0</version>
 	<name>DB</name>
 	<description>Services, repository and models in DB</description>
 
 	<properties>
 		<!-- REDMIC -->
 		<redmic.db-commons.version>0.7.0</redmic.db-commons.version>
-		<redmic.models.version>0.14.0-feature-addActivityEmbeddedContent</redmic.models.version>
+		<redmic.models.version>0.15.0</redmic.models.version>
 		<redmic.exceptions.version>0.10.0</redmic.exceptions.version>
 
 		<!-- OTHER -->
