@@ -60,11 +60,11 @@ public class ActivityEmbeddedContent extends LongModel implements Serializable {
 		this.activity = activityBase;
 	}
 
-	public String getEmbeddedcontent() {
+	public String getEmbeddedContent() {
 		return this.embeddedcontent;
 	}
 
-	public void setEmbeddedcontent(String embeddedcontent) {
+	public void setEmbeddedContent(String embeddedcontent) {
 		this.embeddedcontent = embeddedcontent;
 	}
 }
